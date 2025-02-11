@@ -307,7 +307,7 @@ export default function Playground({
           </ConfigurationPanelItem>
         </div>
         {config.show_qr && (
-          <div className="w-full">
+          <div className="w-full test class">
             <ConfigurationPanelItem title="QR Code">
               <QRCodeSVG value={window.location.href} width="128" />
             </ConfigurationPanelItem>

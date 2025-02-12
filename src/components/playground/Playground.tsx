@@ -215,7 +215,6 @@ export default function Playground({
   const settingsTileContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4 h-full w-full items-start overflow-y-auto">
-        <p>TEST</p>
         {config.description && (
           <ConfigurationPanelItem title="Description">
             {config.description}
@@ -294,7 +293,7 @@ export default function Playground({
             <AudioInputTile trackRef={localMicTrack} />
           </ConfigurationPanelItem>
         )}
-        <div className="w-full test-class">
+        <div className="w-full">
           <ConfigurationPanelItem title="Color">
             <ColorPicker
               colors={themeColors}

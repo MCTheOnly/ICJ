@@ -23,6 +23,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      console.log('response: ', messages);
     }
   }, [containerRef, messages]);
 

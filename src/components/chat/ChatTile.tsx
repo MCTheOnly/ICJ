@@ -23,6 +23,7 @@ type ChatTileProps = {
 
 const LOADING_MARKER = '...';
 const RESTRICTED_CHARS = [LOADING_MARKER, ' ...', '... ', ' ... '];
+const LOADING_TIMEOUT = 4000;
 
 export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
     const [messageAggregator, setMessageAggregator] = useState<ChatMessageType[]>([]);
@@ -48,14 +49,15 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                     if (!message.isSelf) {
                         const isInArray = messageAggregator.find(item => item.message === message.message);
                         const isRestricted = RESTRICTED_CHARS.includes(message.message);
-                        const sanitizedMessage = {...message, message: message.message.replace(LOADING_MARKER, '')};
-
+                        
                         if (!isInArray && !isRestricted) {
+                            const sanitizedMessage = {...message, message: message.message.replace(LOADING_MARKER, '')};
+
                             setMessageAggregator(prev => [...prev, sanitizedMessage]);
                         }
                     }
                 });
-            }, 3000);
+            }, LOADING_TIMEOUT);
         };
 
         debouncedAggregator();

@@ -20,6 +20,7 @@ type ChatTileProps = {
 
 export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
     const [messageAggregator, setMessageAggregator] = useState<ChatMessageType[]>([]);
+    const [joinedResponse, setJoinedResponse] = useState<string>('');
 
     const containerRef = useRef<HTMLDivElement>(null);
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -54,6 +55,8 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
 
     useEffect(() => {
         console.log('aggregator: ', messageAggregator);
+
+        setJoinedResponse(messageAggregator.map(item => item.message).join(' '));
     }, [messageAggregator]);
 
     return (
@@ -67,21 +70,23 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
             >
                 <div className="flex flex-col min-h-full justify-end">
                     {messages.map((message, index, allMsg) => {
-                        const hideName =
-                        index >= 1 && allMsg[index - 1].name === message.name;
+                        const hideName = index >= 1 && allMsg[index - 1].name === message.name;
 
                         return (
-                        <ChatMessage
-                            key={index}
-                            hideName={hideName}
-                            name={message.name}
-                            message={message.message}
-                            isSelf={message.isSelf}
-                            accentColor={accentColor}
-                        />
+                            <ChatMessage
+                                key={index}
+                                hideName={hideName}
+                                name={message.name}
+                                message={message.message}
+                                isSelf={message.isSelf}
+                                accentColor={accentColor}
+                            />
                         );
                     })}
                 </div>
+                {joinedResponse && (
+                    <p>{joinedResponse}</p>
+                )}
             </div>
             <ChatMessageInput
                 height={inputHeight}

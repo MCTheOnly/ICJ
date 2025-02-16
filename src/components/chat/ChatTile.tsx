@@ -46,7 +46,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                         }
                     }
                 });
-            }, 200);
+            }, 1000);
         };
 
         debouncedAggregator();

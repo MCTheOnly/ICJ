@@ -21,7 +21,7 @@ type ChatTileProps = {
     onSend?: (message: string) => Promise<ComponentsChatMessage>;
 };
 
-const LOADING_MARKER = '...';
+const RESTRICTED_CHARS = ['...', ' ...', '... ', ' ... '];
 
 export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
     const [messageAggregator, setMessageAggregator] = useState<ChatMessageType[]>([]);
@@ -46,8 +46,9 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                 messages.forEach(message => {
                     if (!message.isSelf) {
                         const isInArray = messageAggregator.find(item => item.message === message.message);
+                        const isRestricted = RESTRICTED_CHARS.includes(message.message);
 
-                        if (!isInArray && message.message !== LOADING_MARKER) {
+                        if (!isInArray && !isRestricted) {
                             setMessageAggregator(prev => [...prev, message]);
                         }
                     }

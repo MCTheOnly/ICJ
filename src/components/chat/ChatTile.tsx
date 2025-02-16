@@ -21,6 +21,8 @@ type ChatTileProps = {
     onSend?: (message: string) => Promise<ComponentsChatMessage>;
 };
 
+const LOADING_MARKER = '...';
+
 export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
     const [messageAggregator, setMessageAggregator] = useState<ChatMessageType[]>([]);
     const [joinedResponse, setJoinedResponse] = useState<string>('');
@@ -45,7 +47,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                     if (!message.isSelf) {
                         const isInArray = messageAggregator.find(item => item.message === message.message);
 
-                        if (!isInArray) {
+                        if (!isInArray && message.message !== LOADING_MARKER) {
                             setMessageAggregator(prev => [...prev, message]);
                         }
                     }
@@ -61,6 +63,11 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
 
         setJoinedResponse(messageAggregator.map(item => item.message).join(' '));
     }, [messageAggregator]);
+
+    
+    useEffect(() => {
+        console.log('joinedResponse: ', joinedResponse);
+    }, [joinedResponse]);
 
     return (
         <div className="flex flex-col gap-4 w-full h-full">

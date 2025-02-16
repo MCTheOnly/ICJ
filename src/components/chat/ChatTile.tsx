@@ -1,8 +1,10 @@
 import { ChatMessage } from "@/components/chat/ChatMessage";
 import { ChatMessageInput } from "@/components/chat/ChatMessageInput";
 import { ChatMessage as ComponentsChatMessage } from "@livekit/components-react";
+import { join } from "path";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 
 const inputHeight = 48;
 
@@ -86,7 +88,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                     })}
                 </div>
                 {joinedResponse && (
-                    <ReactMarkdown>{joinedResponse}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{joinedResponse}</ReactMarkdown>
                 )}
             </div>
             <ChatMessageInput

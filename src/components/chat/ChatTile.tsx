@@ -38,7 +38,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
 
             debounceRef.current = setTimeout(() => {
                 messages.forEach(message => {
-                    if (message.isSelf) {
+                    if (!message.isSelf) {
                         const isInArray = messageAggregator.find(item => item.message === message.message);
 
                         if (!isInArray) {

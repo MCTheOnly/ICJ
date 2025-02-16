@@ -26,7 +26,7 @@ const RESTRICTED_CHARS = [LOADING_MARKER, ' ...', '... ', ' ... '];
 const LOADING_TIMEOUT = 4000;
 
 export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
-    const [messageAggregator, setMessageAggregator] = useState<ChatMessageType[]>([]);
+    const [messageAggregator, setMessageAggregator] = useState<string[]>([]);
     const [joinedResponse, setJoinedResponse] = useState<string>('');
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -47,11 +47,12 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
             debounceRef.current = setTimeout(() => {
                 messages.forEach(message => {
                     if (!message.isSelf) {
-                        const isInArray = messageAggregator.find(item => item.message === message.message);
+                        const isInArray = messageAggregator.find(item => item === message.message);
                         const isRestricted = RESTRICTED_CHARS.includes(message.message);
                         
                         if (!isInArray && !isRestricted) {
-                            const sanitizedMessage = {...message, message: message.message.replace(LOADING_MARKER, '')};
+                            // const sanitizedMessage = {...message, message: message.message.replace(LOADING_MARKER, '')};
+                            const sanitizedMessage = message.message.replace(LOADING_MARKER, '');
 
                             setMessageAggregator(prev => [...prev, sanitizedMessage]);
                         }
@@ -65,7 +66,8 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
 
     useEffect(() => {
         console.log('aggregator: ', messageAggregator);
-        const joinedText = messageAggregator.map(item => item.message).join(' ');
+        // const joinedText = messageAggregator.map(item => item.message).join(' ');
+        const joinedText = messageAggregator.join(' ');
 
         setJoinedResponse(joinedText.replace('. ', '.'));
     }, [messageAggregator]);

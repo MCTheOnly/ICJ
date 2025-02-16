@@ -50,7 +50,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                         }
                     }
                 });
-            }, 1000);
+            }, 3000);
         };
 
         debouncedAggregator();

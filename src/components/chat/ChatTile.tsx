@@ -66,7 +66,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
     useEffect(() => {
         console.log('aggregator: ', messageAggregator);
 
-        setJoinedResponse(messageAggregator.map(item => item.message).join(' '));
+        setJoinedResponse(messageAggregator.map(item => item.message).join(''));
     }, [messageAggregator]);
 
     

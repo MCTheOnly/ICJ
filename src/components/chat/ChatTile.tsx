@@ -2,6 +2,7 @@ import { ChatMessage } from "@/components/chat/ChatMessage";
 import { ChatMessageInput } from "@/components/chat/ChatMessageInput";
 import { ChatMessage as ComponentsChatMessage } from "@livekit/components-react";
 import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from 'react-markdown';
 
 const inputHeight = 48;
 
@@ -85,7 +86,7 @@ export const ChatTile = ({ messages, accentColor, onSend }: ChatTileProps) => {
                     })}
                 </div>
                 {joinedResponse && (
-                    <p>{joinedResponse}</p>
+                    <ReactMarkdown>{joinedResponse}</ReactMarkdown>
                 )}
             </div>
             <ChatMessageInput

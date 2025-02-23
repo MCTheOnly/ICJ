@@ -21,13 +21,17 @@ type ChatTileProps = {
     onSend?: (message: string) => Promise<ComponentsChatMessage>;
 };
 
-const LOADING_MARKER = '...';
+// const LOADING_MARKER = '...';
 // const RESTRICTED_CHARS = [LOADING_MARKER, ' ...', '... ', ' ... '];
 // const LOADING_TIMEOUT = 4000;
 
 export const ChatTile = ({ markdown, messages, accentColor, onSend }: ChatTileProps) => {
     // const [messageAggregator, setMessageAggregator] = useState<string[]>([]);
-    const [joinedResponse, setJoinedResponse] = useState<string>('');
+    // const [joinedResponse, setJoinedResponse] = useState<string>('');
+
+    useEffect(() => {
+        console.log('ChatTile: ', markdown);
+    }, [markdown]);
 
     const containerRef = useRef<HTMLDivElement>(null);
     // const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -107,7 +111,7 @@ export const ChatTile = ({ markdown, messages, accentColor, onSend }: ChatTilePr
                 {/* {joinedResponse && (
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{joinedResponse}</ReactMarkdown>
                 )} */}
-                { markdown && (
+                {markdown && (
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
                 )}
             </div>

@@ -28,6 +28,7 @@ import { ConnectionState, LocalParticipant, Track } from "livekit-client";
 import { QRCodeSVG } from "qrcode.react";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import tailwindTheme from "../../lib/tailwindTheme.preval";
+import { useRoomContext } from "@livekit/components-react";
 
 export interface PlaygroundMeta {
   name: string;
@@ -53,9 +54,11 @@ export default function Playground({
   const { localParticipant } = useLocalParticipant();
 
   const voiceAssistant = useVoiceAssistant();
-
+  const room = useRoomContext();
   const roomState = useConnectionState();
   const tracks = useTracks();
+
+  console.log(room);
 
   useEffect(() => {
     if (roomState === ConnectionState.Connected) {

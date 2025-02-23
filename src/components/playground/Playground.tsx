@@ -29,6 +29,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import tailwindTheme from "../../lib/tailwindTheme.preval";
 import { useRoomContext } from "@livekit/components-react";
+import { RoomEvent } from "livekit-client";
 
 export interface PlaygroundMeta {
   name: string;
@@ -58,7 +59,21 @@ export default function Playground({
   const roomState = useConnectionState();
   const tracks = useTracks();
 
-  console.log(room);
+  console.log('room: ', room);
+
+  room.on(RoomEvent.DataReceived, (payload, participant, kind) => {
+    console.log('params: ', payload, participant, kind);
+
+    const data = JSON.parse(new TextDecoder().decode(payload));
+
+    if (data.text) {
+        displayMarkdown(data.text);
+    }
+});
+
+function displayMarkdown(markdown: string) {
+    console.log("Received text:", markdown);
+}
 
   useEffect(() => {
     if (roomState === ConnectionState.Connected) {

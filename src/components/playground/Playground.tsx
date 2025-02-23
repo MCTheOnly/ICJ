@@ -70,6 +70,10 @@ export default function Playground({
         }
     });
 
+    useEffect(() => {
+        console.log('markdown: ', markdown);
+    }, [markdown]);
+
     // const displayMarkdown = (markdown: string) => {
     //     console.log("Received text:", markdown);
     // }

@@ -29,10 +29,6 @@ export const ChatTile = ({ markdown, messages, accentColor, onSend }: ChatTilePr
     // const [messageAggregator, setMessageAggregator] = useState<string[]>([]);
     // const [joinedResponse, setJoinedResponse] = useState<string>('');
 
-    useEffect(() => {
-        console.log('ChatTile: ', markdown);
-    }, [markdown]);
-
     const containerRef = useRef<HTMLDivElement>(null);
     // const debounceRef = useRef<NodeJS.Timeout | null>(null);
 

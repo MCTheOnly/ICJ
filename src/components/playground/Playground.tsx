@@ -60,23 +60,30 @@ export default function Playground({
     const roomState = useConnectionState();
     const tracks = useTracks();
 
-    // console.log('room: ', room);
-
-    room.on(RoomEvent.DataReceived, payload => {
-        const data = JSON.parse(new TextDecoder().decode(payload));
-
-        if (data.text) {
-            setMarkdown(data.text);
-        }
-    });
-
     useEffect(() => {
-        console.log('markdown: ', markdown);
-    }, [markdown]);
+        const handleMardown = (payload: Uint8Array<ArrayBufferLike>) => {
+            const data = JSON.parse(new TextDecoder().decode(payload));
+    
+            if (data.text) {
+                setMarkdown(data.text);
+            }
+        }
 
-    // const displayMarkdown = (markdown: string) => {
-    //     console.log("Received text:", markdown);
-    // }
+        room.on(RoomEvent.DataReceived, handleMardown);
+
+        const testArgs = { test: true, date: new Date() };
+        const encodedData = new TextEncoder().encode(JSON.stringify(testArgs));
+
+        room.on("dataReceived", data => {
+            console.log('dataReceived: ', data);
+        });
+
+        room.emit("dataReceived", encodedData);
+
+        return () => {
+            room.off(RoomEvent.DataReceived, handleMardown);
+        }
+    }, []);
 
     useEffect(() => {
         if (roomState === ConnectionState.Connected) {

@@ -36,10 +36,6 @@ export function TranscriptionTile({
     const [messages, setMessages] = useState<ChatMessageType[]>([]);
     const { chatMessages, send: sendChat } = useChat();
 
-    useEffect(() => {
-        console.log('tileCheck: ', markdown);
-    }, [markdown]);
-
     // useEffect(() => {
     //     console.log('chatMessages: ', chatMessages);
     // }, [chatMessages]);

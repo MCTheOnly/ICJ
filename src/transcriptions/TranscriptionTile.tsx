@@ -35,8 +35,12 @@ export function TranscriptionTile({
   const { chatMessages, send: sendChat } = useChat();
 
   useEffect(() => {
-    console.log('messages ', chatMessages);
-  }, [chatMessages])
+    console.log('chatMessages ', chatMessages);
+  }, [chatMessages]);
+
+  useEffect(() => {
+    console.log('messages ', messages);
+  }, [messages]);
 
   // store transcripts
   useEffect(() => {
@@ -62,6 +66,9 @@ export function TranscriptionTile({
     );
 
     const allMessages = Array.from(transcripts.values());
+
+  console.log('allMessages: ', allMessages);  
+
     for (const msg of chatMessages) {
       const isAgent =
         msg.from?.identity === agentAudioTrack.participant?.identity;

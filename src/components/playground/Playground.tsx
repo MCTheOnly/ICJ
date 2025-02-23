@@ -234,7 +234,7 @@ export default function Playground({
     }
 
     return <></>;
-  }, [config.settings.theme_color, voiceAssistant.audioTrack]);
+  }, [config.settings.theme_color, markdown, voiceAssistant.audioTrack]);
 
 const settingsTileContent = useMemo(() => {
     return (

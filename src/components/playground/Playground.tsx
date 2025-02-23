@@ -74,10 +74,6 @@ export default function Playground({
         const testArgs = { test: true, date: new Date() };
         const encodedData = new TextEncoder().encode(JSON.stringify(testArgs));
 
-        room.on("dataReceived", data => {
-            console.log('dataReceived: ', data);
-        });
-
         room.emit("dataReceived", encodedData);
 
         return () => {
